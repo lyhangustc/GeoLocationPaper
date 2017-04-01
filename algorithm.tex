@@ -5,8 +5,8 @@
 %<point cloud, line, facades, roofs等等的单复数问题>
 %那些数学符号要用黑体、斜体、花体？
 %{Assumption: 相机光轴align vertical vector。}
-\lyhpi{其实不是每个点都满足这个投影公式的，只有对应点满足。但是在找到对应点之前的Alignment问题里面也要用到}
-\lyh{要不要改成齐次坐标？}
+%{其实不是每个点都满足这个投影公式的，只有对应点满足。但是在找到对应点之前的Alignment问题里面也要用到}
+%{要不要改成齐次坐标？}
 Given a 3D point $(x,y,z,1)$ of the point cloud model, and a 2D point $(u,v,1)$ of the overhead image captured by a quadrotor in a low altitude, our goal is to compute the transform matrix $\mathbf{RT}$ projecting the 3D the point to the 2D point using 
 %
 \begin{equation} \label{eq:problem}
@@ -23,7 +23,6 @@ where $m$ is the normalization term ensuring the third dimension of the 2D point
 
 \xj{do you calibrate the camera intrinsics? how? }
 \xj{three main steps: extraction of feature point correspondences, ..., as Fig~\ref{fig:overview} shows.}
-\lyhpi{这段跟introduction里面的short overview相同}
 Our algorithm consists of three main steps as Fig~\ref{fig:overview} shows. At first, we treat this problem as a shape matching problem between the edge image of an overhead image and the 2D line presentation of a point cloud where we assume that the optical axis of the camera aligns to the gravity direction and apply a novel multi-level projection strategy to handle the low-altitude problem. Moreover, we determine correspondences by matching corners of images with feature points of point clouds. At last, these two types of data are registered with the correspondences using sparse bundler adjust (SBA) algorithm.
 
 
@@ -71,7 +70,7 @@ To handle the problem without this convenient assumption, we present a novel mul
 %
 %
 \subsection{Point cloud processing}
-\lyh{这一节只是说了how, 没有说why}
+%{这一节只是说了how, 没有说why}
 A building point cloud，$\mathcal{P}=\{\mathbf{p}_i\}$, $i=1,2,\ldots,N_{Points}$, are pre-processed to get height-related templates for shape matching. 
 \paragraph{Normal} If needed, we compute a normal $\mathbf{n}_i$ for each point $\mathbf{p}_i$ in the point cloud using Fast and Robust Normal Estimation (FRNE)~\cite{boulch2012fast} which preservers sharp features such as edges and corners.
 %
@@ -115,8 +114,8 @@ Therefor, we only use chamfer distance matching technique to find the translatio
 FDCM incorporates edge orientation information in the matching algorithm such that the resulting cost function is piecewise smooth and the cost variation is tightly bounded. %这句话好像没什么用 改表达
 Moreover, FDCM is proved to be a sublinear time algorithm using techniques from 3D distance transforms and directional integral images.  %改表达
 To compute the transformation, FDCM requires as input two sets of line segments, a template set and a target set, from two input edge images respectively. In \cite{FDCM}, line segments of both two sets are estimated from corresponding edge images using a RANSAC line fitting algorithm. However, the proposal method use the line segments generated in point cloud processing as the template sets.
-\lyh{为什么要用point cloud里面的lines来代替原方法的lines？}
-\lyh{{Why dont we just use FDCM to compute scale and rotation? Computation complexity?}}
+%{为什么要用point cloud里面的lines来代替原方法的lines？}
+%{{Why dont we just use FDCM to compute scale and rotation? Computation complexity?}}
 %
 \section{Feature point matching}
 At this point, 
