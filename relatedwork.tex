@@ -1,0 +1,27 @@
+
+%------------------- Related work ------------------------------------
+%
+\section{Related work}
+In this section a brief review of existing approaches on Geo-localization is given...\lyh{加上一个概括}
+%
+\xj{more references are needed.}
+\subsection{Geo-localization with image database}
+
+With a large dataset of pre-registered images, image-based methods compute 6DOF camera pose of a given image. 
+\cite{Schindler2007} maintains a dataset of streetside images and uses a vocabulary tree to recognize the location. 
+A wide-baseline matching algorithm is presented by \cite{Robertson2004} to identify corresponding building facades generated from a image dataset in two views. It can handle significant changes of viewpont and lighting. \cite{Zamir2014} applies a multiple nearest neighbor feature matching method with a local feature constraint. 
+%
+\xj{In comparison, we do what?}
+
+
+\subsection{Geo-localization with models}
+\cite{Kaminsky2009} aligns a SfM model of urban environment to a corresponding overhead image by computing an objective function that matches 3D points to image edges under a free space (space without buildings) constraints based on the visibility of points in each camera. 
+They use not only the points of SfM model but also the camera poses of images which are both generated from image collection.
+\cite{Crews2013} geo-registered 3D point clouds to a scaled map image by defining a normalized Hough similarity function and aligning planes (i.e., walls) in 3D point clouds to lines in 2D maps.
+\cite{ECDM} treats the geo-localization as a shape matching problem and aligns 2D the vertical projection of the 3D building roofs and edges of satellite images. An extended Chamfer matching is used to handle noise and occlusions while a global constraint is introduced to optimize the alignment within a large region.
+%
+In comparison, our method applies a fast version of Chamfer matching algorithm~\cite{FDCM} to \textbf{accelerate} the process where the matching algorithm is based on line segments instead of \mdxj{dense} points used in \cite{ECDM}, and introduces a multi-level strategy to handle low-altitude overhead images where we assign different scales to roofs in different heights. 
+%
+\subsection{Geo-registration}
+...
+%

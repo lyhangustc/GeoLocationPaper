@@ -1,0 +1,185 @@
+%%% template.annotated.tex
+%%%
+%%% This LaTeX source document can be used as the basis for your technical
+%%% paper or abstract. Unlike ``template.tex,'' this version of the source
+%%% document contains documentation of each of the commands and definitions
+%%% that should be used in the preparation of your formatted document.
+%%% 
+%%% The parameter given to the ``acmsiggraph'' LaTeX class in the 
+%%% ``\documentclass'' command controls several features of the formatted 
+%%% output: the presence or absence of hyperlinked icons just prior to the 
+%%% first section of the paper, the amount of space left clear for the ACM
+%%% copyright notice, the presence or absence of line numbers and submission
+%%% ID, and the presence or absence of an appropriate ``preprint'' notice.
+%%% 
+%%% If you are preparing a paper for presentation in the Technical Papers
+%%% program at one of our two annual flagship conferences, held in North 
+%%% America (SIGGRAPH) or Asia (SIGGRAPH Asia), you should use ``tog''
+%%% as the parameter.
+%%%
+%%% If you are preparing a paper for presentation at one of our sponsored
+%%% events, including SIGGRAPH and SIGGRAPH Asia, but not in those events' 
+%%% Technical Papers program, or a one- to four-page abstract, you should 
+%%% use ``conference'' as the parameter.
+%%% (Technical Briefs and Game Papers presented at our annual flagship 
+%%% events fall into this category, as do papers accepted to other SIGGRAPH-
+%%% sponsored events, such as I3D or ETRA or VRCAI, as do the one-page 
+%%% abstracts which serve as the primary documentation for many of our 
+%%% annual conference programs, including Posters, Talks, and Emerging 
+%%% Technologies.)
+%%%
+%%% If you are preparing a version of your content for review, you should
+%%% use ``review'' as the parameter. Line numbers will be added to your 
+%%% paper, and the submission ID value will be printed across the top of 
+%%% each page of your paper. (Use the submission ID as the parameter to the
+%%% ``TOGonlineID'' command, below.)
+%%%
+%%% If you are preparing a preprint of your content, you should use
+%%% ``preprint'' as the parameter. This is primarily for annual conference
+%%% papers; a header reading ``To appear in ACM TOG X(Y)'' will appear on
+%%% each page of the formatted output (where X is the volume and Y is the 
+%%% number of the issue in which it will be published).
+
+\documentclass[tog]{acmsiggraph}
+
+%%% Definitions and commands that begin with ``\TOG'' are meant to be used
+%%% in the preparation of papers to be presented in the Technical Papers
+%%% program at one of our annual flagship events - SIGGRAPH and SIGGRAPH 
+%%% Asia. You can safely ignore these definitions and commands if your 
+%%% content is to be presented in some other venue.
+
+%%% ``\TOGonlineid'' should be filled with the online ID value you received
+%%% when you submitted your technical paper. It will be printed out if you 
+%%% prepare a ``review'' version of your paper.
+
+\TOGonlineid{45678}
+
+%%% Should your technical paper be accepted, you will be given three pieces
+%%% of information: the volume and number of the issue of the ACM Transactions
+%%% on Graphics journal in which your paper will be published, and the 
+%%% ``article DOI'' value, which is unique to your paper and provides the 
+%%% link to your paper's page in the ACM Digital Library. Fill in the 
+%%% ``\TOGvolume,'' ``\TOGnumber,'' and ``\TOGarticleDOI'' definitions with
+%%% the three pieces of information you receive.
+
+\TOGvolume{0}
+\TOGnumber{0}
+\TOGarticleDOI{1111111.2222222}
+
+%%% By default, your technical paper will contain hyperlinked icons which 
+%%% point to your paper's article page in the ACM Digital Library, and to 
+%%% the paper itself in the ACM Digital Library. You may wish to add one 
+%%% or more links to your own resources. If any of the following four 
+%%% definitions have URLs in them, an appropriate hyperlinked icon will be
+%%% added to the list. 
+
+\TOGprojectURL{}
+\TOGvideoURL{}
+\TOGdataURL{}
+\TOGcodeURL{}
+
+%%% Define the title of your paper here. Use capital letters as appropriate.
+%%% Setting the entire title in upper-case letters is not correct, nor is 
+%%% capitalizing only the first letter of the title.
+
+\title{The Title of Your Paper Goes Here}
+
+%%% Define the author list in the ``\author'' command. The ``\thanks'' 
+%%% field can be used to define an e-mail address for the author.
+%%% The ``\pdfauthor'' field should contain a comma-separated list of the
+%%% authors of the paper, and is used, along with the title and keyword
+%%% data, for PDF metadata. (To see this metadata, open the PDF in Adobe 
+%%% Reader and select ``File > Properties > Description.''
+
+\author{Yuhang Li\thanks{e-mail:lyh9001@mail.ustc.edu.cn}\\Xuejin Chen\thanks{e-mail:xjchen99@ustc.edu.cn}}
+\pdfauthor{Yuhang Li}
+
+%%% User-defined keywords.
+
+\keywords{geo-localization, point cloud, registration}
+
+%%% End of the document preamble, start of the document.
+\usepackage[UTF8]{ctex}%Use Chinese charactors.
+\newcommand{\comment}[1]{}
+\newcommand{\xj}[1]{\textcolor[rgb]{0.00,0.00,1.00}{(xuejin: #1)} } 
+\newcommand{\lyh}[1]{\textcolor[rgb]{1.00,0.00,0.00}{(lyh: #1)} } 
+\newcommand{\mdxj}[1]{\textcolor[rgb]{0.50,0.00,0.50}{#1} } 
+\newcommand{\lyhpi}[1]{\textcolor[rgb]{0.50,0.50,0.50}{(Paper idea: #1)} } 
+\newcommand{\lyhnew}[1]{\textcolor[rgb]{0.30,0.70,0.30}{(New: #1)} } % new content after last review 
+\begin{document}
+
+%%% A ``teaser'' image appears below the title and affiliation and above
+%%% the two-column body of the paper. This is optional, but if you wish
+%%% to include such an image, the commented-out code, below, can be used
+%%% as an example. Please note that the inclusion of a ``teaser'' image
+%%% may move the copyright space to the bottom of the right-hand column
+%%% on the first page of your formatted output. This is acceptable.
+
+%% \teaser{
+%%   \includegraphics[height=1.5in]{images/sampleteaser}
+%%   \caption{Spring Training 2009, Peoria, AZ.}
+%% }
+
+%%% The ``\maketitle'' command uses the author and title information 
+%%% defined above, and prepares the formatted title.
+
+\maketitle
+
+%%% The ``abstract'' environment should contain the abstract for your
+%%% content -- one to several paragraphs which describe the work.
+
+\begin{abstract}
+
+Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
+molestie consequat, vel illum dolore eu feugiat nulla facilisis at 
+vero eros et accumsan et iusto odio dignissim qui blandit praesent
+luptatum zzril delenit augue duis dolore te feugait nulla
+facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+aliquam erat volutpat.
+
+\end{abstract}
+
+%%% The ``CRCatlist'' environment defines one or more ACM ``Computing Review''
+%%% (or ``CR'') categories, used for indexing your work. For more information
+%%% on CR categories, please see http://www.acm.org/class/1998.
+
+\begin{CRcatlist}
+  \CRcat{I.3.3}{Computer Graphics}{Three-Dimensional Graphics and Realism}{Display Algorithms}
+  \CRcat{I.3.7}{Computer Graphics}{Three-Dimensional Graphics and Realism}{Radiosity};
+\end{CRcatlist}
+
+%%% The ``\keywordlist'' prints out the user-defined keywords.
+
+\keywordlist
+
+%%% If you are preparing a paper to be presented in the Technical Papers
+%%% program at one of our annual flagship events (and, therefore, using 
+%%% the ``tog'' parameter to the ``\documentclass'' command), the 
+%%% ``\TOGlinkslist'' command prints out the list of hyperlinked icons.
+%%% If you are using any other parameter to the ``\documentclass'' command
+%%% this command does absolutely nothing.
+
+\TOGlinkslist
+
+%%% The ``\copyrightspace'' command will leave clear an amount of space
+%%% at the bottom of the left-hand column on the first page of your paper,
+%%% according to the parameter used in the ``\documentclass'' command.
+
+\copyrightspace。
+
+\input{intro}
+\input{relatedwork}
+\input{algorithm}
+\input{experiment}
+%
+\section*{Acknowledgements}
+
+To Robert, for all the bagels.
+
+%%% Please use the ``acmsiggraph'' BibTeX style to properly format your
+%%% bibliography.
+
+\bibliographystyle{acmsiggraph}
+\bibliography{Alignment_of_Model}
+\end{document}

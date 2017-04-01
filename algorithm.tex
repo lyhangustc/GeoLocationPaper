@@ -1,0 +1,125 @@
+%
+%------------------------- Overview ------------------------------
+%
+\section{Overview}
+%<point cloud, line, facades, roofs等等的单复数问题>
+%那些数学符号要用黑体、斜体、花体？
+%{Assumption: 相机光轴align vertical vector。}
+\lyhpi{其实不是每个点都满足这个投影公式的，只有对应点满足。但是在找到对应点之前的Alignment问题里面也要用到}
+\lyh{要不要改成齐次坐标？}
+Given a 3D point $(x,y,z,1)$ of the point cloud model, and a 2D point $(u,v,1)$ of the overhead image captured by a quadrotor in a low altitude, our goal is to compute the transform matrix $\mathbf{RT}$ projecting the 3D the point to the 2D point using 
+%
+\begin{equation} \label{eq:problem}
+m\begin{bmatrix}
+u\\v\\1
+\end{bmatrix}
+= \mathbf{K} \mathbf{RT}
+\begin{bmatrix}
+x\\y\\z\\1
+\end{bmatrix},
+\end{equation}
+%
+where $m$ is the normalization term ensuring the third dimension of the 2D point to be one, $\mathbf{K}$ is the pre-calibrated intrinsic matrix of the camera, $\mathbf{R}$ is the rotation matrix and $\mathbf{T}$ is the translation matrix.
+
+\xj{do you calibrate the camera intrinsics? how? }
+\xj{three main steps: extraction of feature point correspondences, ..., as Fig~\ref{fig:overview} shows.}
+\lyhpi{这段跟introduction里面的short overview相同}
+Our algorithm consists of three main steps as Fig~\ref{fig:overview} shows. At first, we treat this problem as a shape matching problem between the edge image of an overhead image and the 2D line presentation of a point cloud where we assume that the optical axis of the camera aligns to the gravity direction and apply a novel multi-level projection strategy to handle the low-altitude problem. Moreover, we determine correspondences by matching corners of images with feature points of point clouds. At last, these two types of data are registered with the correspondences using sparse bundler adjust (SBA) algorithm.
+
+
+\xj{Explain every variable and every key elements with equations or mathmatical symbols. In order to solve RT, what things should be known?}
+%
+%------------------------- Shape matching ------------------------------
+%
+\section{Shape matching}
+%
+Our building point clouds are obtained by scanning buildings using a ground laser equipment. Only vertical facades of buildings, walls, are captured, and roofs are not able to be scanned by the ground equipment, as Fig~\ref{fig:overview}~(a) shows. 
+The overhead images are captured by a quadrotor in a low-altitude. We assume the optical axis of the camera aligns the camera aligns to the gravity direction. This assumption will be discarded in Section~\ref{sct:geo-registration}.
+The fact that vertical facades of a point cloud correspond to lines of building roofs in the overhead image \cite{ECDM} inspires us to project the point cloud along the vertical vector and to treat this geo-localization \lyh{ Geo-localization?} problem as a shape matching one in this stage. 
+In this kind of problem, one or multiple templates and a target image are needed. 
+We generate the 2D templates by projecting the point cloud with a multi-level strategy and apply the edge image of the input overhead image as the target image.
+
+Let a point in a 2D template be $(u_p, v_p, 1)$ and a point in 2D target image be $(u_e, v_e, 1)$. We compute a rotation matrix $\mathbf{R}_{sm}$ with only one dimensional freedom, a scale $s$ and a translation $\mathbf{T}_{sm}$ with two dimensional freedom subjected to
+%
+\begin{equation}\label{eq:projection_shape_matching}
+m\begin{bmatrix}
+u_e\\v_e\\1
+\end{bmatrix}
+=s\mathbf{R}_{sm}\mathbf{T}_{sm}
+\begin{bmatrix}
+u_p\\v_p\\1
+\end{bmatrix},
+\end{equation}
+%
+where 
+\begin{equation}\label{eq:rotation_shape_matching}
+\mathbf{R}_{sm}= \begin{bmatrix}
+\cos\phi_{z} & -\sin\phi_{z} & 0 \cr \sin\phi_{z} & \cos\phi_{z} & 0 \cr 0 & 0 & 1
+\end{bmatrix},
+\end{equation}
+\begin{equation}\label{eq:translation_shape_matching}
+\mathbf{T}_{sm}=\begin{bmatrix}
+1 & 0 & 0 & t_x \\ 0 & 1 & 0 & t_y \\ 0 & 0 & 1 & 0
+\end{bmatrix}.
+\end{equation}
+%
+\cite{ECDM} projects all pre-scaled and pre-rotated points of a building point cloud model along the vertical vector to obtain the template image and extracts the edge image of overhead image as target image. 
+%
+Considering that parts of building roofs with different heights are of different scales in a low-altitude overhead image, it is unreasonable to keep the assumption in \cite{ECDM} that the projection scales of all parts of building roofs are the same.  \xj{emphasize this in introduction.}
+%
+To handle the problem without this convenient assumption, we present a novel multi-height strategy, where we match the point cloud projections of different heights with the overhead image separately. 
+%
+%
+\subsection{Point cloud processing}
+\lyh{这一节只是说了how, 没有说why}
+A building point cloud，$\mathcal{P}=\{\mathbf{p}_i\}$, $i=1,2,\ldots,N_{Points}$, are pre-processed to get height-related templates for shape matching. 
+\paragraph{Normal} If needed, we compute a normal $\mathbf{n}_i$ for each point $\mathbf{p}_i$ in the point cloud using Fast and Robust Normal Estimation (FRNE)~\cite{boulch2012fast} which preservers sharp features such as edges and corners.
+%
+\paragraph{Vertical direction} The vertical direction of building point cloud should correspond to the gravity direction in the realworld. If needed, the vertical direction can be computed using a Principal Component Analysis (PCA) based algorithm~\cite{KarlNiNicholasArmstrong-Crews2013}. And then, we rotate the point cloud to ensure the third dimension of a point, $z$, presents the height of this point in real world.
+%
+\paragraph{Segmentation} The point cloud is segmented into clusters $\mathcal{C}_j=\{\mathbf{p}^{j}_i\}$, $j=1,2,\ldots,N_{Clusters}$ by iterated region growing from a randomly selected point with points that are within a Euclidean distance of $\rho$ and a normal difference of $\tau$. This process expands to new adding points repeatedly until every point is assigned to clusters.
+% planar fitting 好像对算法没有用
+\paragraph{Planar fitting} We fit a vertical plane to each cluster. 
+More specifically, for each cluster $\mathcal{C}_j$, we use a RANSAC plane fitting algorithm in PCL~\cite{} to fit a finite planar whose normal is constrained to be orthogonal to the vertical vector. The boundary of each planar is the alpha shape of points. 
+\paragraph{Selected heights} A histogram is built, whose horizontal axis represents the height in meter from zero to the building height and the vertical axis presents the number of particular points. To be specific, we find the maximum height $h^{max}_j$ of points in a cluster $\mathcal{C}_j$ and assign this cluster to one of bins of the histogram, $B_k$, $k=1,2,\ldots,N_{Bins}$, making sure that this bin contains $h^{max}_j$ in its height range. And then, for each bin, we sum up point numbers of clusters assigned to the bin as its value. Top $n_{s}$ bins with maximum values are selected, indicated as $B^{selected}_l$, $l=1,2,\ldots,n_{s}$, and the weighted average height $h^{selected}_l$ of each $B_l$ is computed by
+%
+\begin{equation}
+h^{selected}_l = \sum_jInd(j,l)w_jh^{max}_j,
+\end{equation}
+where $Ind(j,l)$ is a indicator which equals to $1$ if $\mathcal{C}_j$ is assigned to $B^{selected}_l$, otherwise equals to $0$, and $w_j$ is the weight which equals to the number of points in $\mathcal{C}_j$.
+%
+\xj{Show figures about this step. }
+\begin{figure}
+	\centering
+	\vspace{3.0cm}
+	\caption{Contour extraction from point clouds. }
+\end{figure}
+%
+\subsection{sensor pose}
+...
+%
+\subsection{Shape matching}
+%前面要说清楚把什么当作template 什么当作target 下面的陈述可以带上数学表达
+%没有提及sensor pose
+At this stage, we treat the registration problem as a shape matching problem. In a shape matching problem two edge images are needed, a template image and a target image, and we should find a rigid transformation to fit the template image with respect to \lyh{ a part of ?} the target image. To find the rigid transformation, we find the scale, the orientation and the translation respectively. 
+%
+\paragraph{Scale}The scale between the overhead image and the real-world building (also between the overhead image and the metric-scale point cloud) is easy to compute using the intrinsic parameters and altitude parameter from the aircraft sensors, which is accurate enough for later processing. \lyh{Mathematical language?}
+%
+\paragraph{Orientation}The camera orientation of the overhead image is equal to the alignment rotation between overhead image and point cloud projection image. A Hough transform based algorithm \cite{Censi2005} is utilized, which is designed to compute the alignment rotation between two edge images, here, a template image and a target image. This algorithm is based on the fact that  a rotation with specific angle of an image in space domain result in a translation along the angle axis in Hough transform domain.
+%
+\paragraph{Translation} 
+Chamfer distance matching is a classical shape matching technique, which sweep every possible transformation with brute force to compute costs between the transformed template image and the target image. 
+It can handle all respects of transformation including scale, rotation, inspect and translation. However, chamfer distance matching could be extremely complex in computation and time-consuming. 
+In fact, the computation complexity is directly proportional to the search space of \lyh{与搜索空间的每一维的量化个数/粒度成正比}. 
+Therefor, we only use chamfer distance matching technique to find the translation while fixing the scale and the rotation to the results computed above and the inspect to one. Also we apply to speed up a fast version of chamfer distance matching algorithm, Fast Directional Chamfer Matching (FDCM)\cite{FDCM}. 
+FDCM incorporates edge orientation information in the matching algorithm such that the resulting cost function is piecewise smooth and the cost variation is tightly bounded. %这句话好像没什么用 改表达
+Moreover, FDCM is proved to be a sublinear time algorithm using techniques from 3D distance transforms and directional integral images.  %改表达
+To compute the transformation, FDCM requires as input two sets of line segments, a template set and a target set, from two input edge images respectively. In \cite{FDCM}, line segments of both two sets are estimated from corresponding edge images using a RANSAC line fitting algorithm. However, the proposal method use the line segments generated in point cloud processing as the template sets.
+\lyh{为什么要用point cloud里面的lines来代替原方法的lines？}
+\lyh{{Why dont we just use FDCM to compute scale and rotation? Computation complexity?}}
+%
+\section{Feature point matching}
+At this point, 
+%
+\section{Geo-registration} \label{sct:geo-registration}
+%
