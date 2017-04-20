@@ -94,9 +94,6 @@
 \author{author here}
 \pdfauthor{pdfauthor}
 
-%%% User-defined keywords.
-
-\keywords{geo-localization, point cloud, registration}
 
 %%% End of the document preamble, start of the document.
 %\usepackage[UTF8]{ctex}%Use Chinese charactors.
@@ -107,79 +104,57 @@
 \newcommand{\lyhpi}[1]{\textcolor[rgb]{0.50,0.50,0.50}{(Paper idea: #1)} } 
 \newcommand{\lyhnew}[1]{\textcolor[rgb]{0.30,0.70,0.30}{(New: #1)} } % new content after last review 
 \begin{document}
+	
+	%%% A ``teaser'' image appears below the title and affiliation and above
+	%%% the two-column body of the paper. This is optional, but if you wish
+	%%% to include such an image, the commented-out code, below, can be used
+	%%% as an example. Please note that the inclusion of a ``teaser'' image
+	%%% may move the copyright space to the bottom of the right-hand column
+	%%% on the first page of your formatted output. This is acceptable.
+	
+	%% \teaser{
+	%%   \includegraphics[height=1.5in]{images/sampleteaser}
+	%%   \caption{Spring Training 2009, Peoria, AZ.}
+	%% }
+	
+	%%% The ``\maketitle'' command uses the author and title information 
+	%%% defined above, and prepares the formatted title.
+	
+	\maketitle
+	
 
-%%% A ``teaser'' image appears below the title and affiliation and above
-%%% the two-column body of the paper. This is optional, but if you wish
-%%% to include such an image, the commented-out code, below, can be used
-%%% as an example. Please note that the inclusion of a ``teaser'' image
-%%% may move the copyright space to the bottom of the right-hand column
-%%% on the first page of your formatted output. This is acceptable.
-
-%% \teaser{
-%%   \includegraphics[height=1.5in]{images/sampleteaser}
-%%   \caption{Spring Training 2009, Peoria, AZ.}
-%% }
-
-%%% The ``\maketitle'' command uses the author and title information 
-%%% defined above, and prepares the formatted title.
-
-\maketitle
-
-%%% The ``abstract'' environment should contain the abstract for your
-%%% content -- one to several paragraphs which describe the work.
-
-\begin{abstract}
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
-molestie consequat, vel illum dolore eu feugiat nulla facilisis at 
-vero eros et accumsan et iusto odio dignissim qui blandit praesent
-luptatum zzril delenit augue duis dolore te feugait nulla
-facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-aliquam erat volutpat.
-
-\end{abstract}
-
-%%% The ``CRCatlist'' environment defines one or more ACM ``Computing Review''
-%%% (or ``CR'') categories, used for indexing your work. For more information
-%%% on CR categories, please see http://www.acm.org/class/1998.
-
-\begin{CRcatlist}
-  \CRcat{I.3.3}{Computer Graphics}{Three-Dimensional Graphics and Realism}{Display Algorithms}
-  \CRcat{I.3.7}{Computer Graphics}{Three-Dimensional Graphics and Realism}{Radiosity};
-\end{CRcatlist}
-
-%%% The ``\keywordlist'' prints out the user-defined keywords.
-
-\keywordlist
-
-%%% If you are preparing a paper to be presented in the Technical Papers
-%%% program at one of our annual flagship events (and, therefore, using 
-%%% the ``tog'' parameter to the ``\documentclass'' command), the 
-%%% ``\TOGlinkslist'' command prints out the list of hyperlinked icons.
-%%% If you are using any other parameter to the ``\documentclass'' command
-%%% this command does absolutely nothing.
-
-\TOGlinkslist
-
-%%% The ``\copyrightspace'' command will leave clear an amount of space
-%%% at the bottom of the left-hand column on the first page of your paper,
-%%% according to the parameter used in the ``\documentclass'' command.
-
-\copyrightspace。
-
-\input{intro}
-\input{relatedwork}
-\input{algorithm}
-\input{experiment}
+	
+	\copyrightspace。
+ %
+ \begin{figure*}
+ 	\centering
+ 	\vspace{2.0cm}
+ 	\includegraphics[width=\textwidth]{figures/teaser_eps}
+ 	\caption{abcd}
+ 	\label{fig:overview}
+ \end{figure*}
+ %	
+\section{Introduction}
 %
-\section*{Acknowledgements}
+As a key technique to image-based navigation, augmented reality (AR) and 3D reconstruction, geo-localization has drawn massive attentions in the literature. When presenting a geo-localization problem, an image or a frame of video is often used as the query data, a 3D model is needed to provide a global coordinate, a sensor prior is optionally employed and the camera pose with respect to the global coordinate system is to be estimated. 
 
-To Robert, for all the bagels.
+In this work, we estimate the camera pose using an overhead image captured by a low-altitude aerial device as query and a corresponding building point cloud as 3D model. Comparing to existing methods using images captured on the ground or in high-altitude, we are not able to take advantages of vanishing points and suffer from more critical perspective effect. There are two key observations that vertical facades of a point cloud correspond to edges of building roofs in the overhead image and that roofs at different altitudes are of different scales in the image, which inspires us to treat this geo-localization problem as a combination of a multi-layer shape matching problem and a global optimization procedure. 
+%利用这个方法，我们可以。。。。。
+%
+\section{Our Approach}
+Given a building point cloud, we first extract contours of building roofs in different altitudes according to the altitude histogram of points, where each contour is fit into a set of line segments (Figure 1b,c). And then the contours are matched with the edge map of the overhead image respectively and achieve a local project matrix for each contour (Figure 1d). To achieve the global project matrix between the whole point cloud and the overhead image, we need a series of pairs of 3D feature points and corresponding 2D feature points. To this end, we use the intersections of neighboring line segments of building roof contours as 3D feature points. 
+% For each 3D feature point, we find a corner in the overhead image as its paired 2D feature point in the k*k neighborhood of its corresponding point in the image after shape matching (Figure 2). 
+For each 3D feature points, we search the k*k neighborhood of its corresponding point in the overhead image after shape matching, and find a corner as its paired 2D feature point (Figure 2).
+With this set of paired 3D and 2D feature points, we can calculate a global project matrix by minimize an energy function based on distance transformation, with which we can finally estimate the 6 DoF camera pose in point cloud coordinate system.
+% Be more specific?
 
-%%% Please use the ``acmsiggraph'' BibTeX style to properly format your
-%%% bibliography.
+Figure 1(e) shows the result of the proposed method by projecting roof contours onto the overhead image. 
 
-\bibliographystyle{acmsiggraph}
-\bibliography{Alignment_of_Model}
+
+
+	\bibliographystyle{acmsiggraph}
+	\bibliography{Alignment_of_Model}
 \end{document}
+
+%---------------------- Introduction ---------------------------------
+%

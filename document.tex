@@ -1,0 +1,96 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+\usepackage[UTF8]{ctex}%Use Chinese charactors.
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titlesec} %Used for title setting
+\usepackage{listings} %Use code
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+%\allsectionsfont{\Large} % Make all sections centered, the default font and small caps
+%\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize
+\textsc{Report} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Weekly Report \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Li Yuhang} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+%----------------------------------------------------------------------------------------
+\section{Introduction}
+{这个问题可以分三个层次（要不要写进论文？或者可以将related work按照这个来写）：\\
+	1. Alignment：求解overhead image（的edge image）和3D model的竖直投影对齐，假定相机光轴方向与竖直反向对齐。求解只有一个自由度的R,两个自由度的T和一个scale（相当于T的z方向的自由度）。\\
+	2. Geo-localization: 找到相机的6DoF pose。3D orientation and 3D location.\\
+	3. 2D-3D registration；求解KRT，K的自由度自定，至少包括$f,u_c,v_c$\\
+	以上三个层次都可以另外加入一些distortion，如长宽比，剪切比，偏心扭曲等。\\
+}
+
+{目前我们的算法主要解决的是一个geo-localization的问题，求解camera pose(主要)。然后可以用camera pose来求correspondences (未解决)，最后用correspondences来做geo-registration问题（非主要）。}
+
+{相比于geo-localzation，SLAM有以下特点：\\
+	0. SLAM不需要格外的模型，只要图片/视频，绘制出来的地图是在一个未知的scale下做的。\\
+	1. 由于同时做定位和地图绘制，于是定位出来的结果也只是在这个未知scale下的坐标内的位置。\\
+	2. 由于是未知坐标，后续为了应用到真实世界，还要在SLAM的基础上加上一个alignment方法才能使用。\\
+	3. SLAM要有一个初始化的过程，不然没法自建起一个坐标系统。\\}
+%----------------------------------------------------------------------------------------
+%\bibliographystyle{plain}%
+%\bibliography{F:/Hang/Report/Model_alignment/Bib/Alignment_of_Model}
+\end{document}
+
