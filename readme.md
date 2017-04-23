@@ -1,7 +1,26 @@
 # README
 See ./Poster for short paper.
+Poster draft is not yet available.
 
-## ÔÙ´ÎÈ·ÈÏÄ£°åµÄÊ±ºò£¬·¢ÏÖ¹Ù·½ÍÆ¼öÊ¹ÓÃ×îĞÂµÄååacmÄ£°å£¬²»ÔÙÊ¹ÓÃÒÔÇ°µÄacmsiggraphÄ£°åÁË¡£ËùÒÔÎÒÒ²¸ÄÁË¡£ĞÂÄ£°åÓĞµãÎÊÌâ:
-* ĞÂÄ£°åµØÖ·: http://www.siggraph.org/learn/instructions-authors, Sample FilesÕÂ½Ú¡£
-* \citestyle ²»ÄÜÓÃ£¬Ê¹µÃÒıÓÃ³ö´í¡£
-* siggraph 2017ÉÏ¸øµÄposter abstract paperÀïÃæÊÇÃ»ÓĞabstract²¿·Ö(and Keywords, ccs concepts²¿·Ö)µÄ£¬µ«ÊÇĞÂÄ£°åºÍĞÂÀı×ÓÓĞ¡£ÎÒÃÇÊÇ²»ÊÇÒ²Ó¦¸ÃĞ´Ò»¸öabstact?
+## å†æ¬¡ç¡®è®¤æ¨¡æ¿çš„æ—¶å€™ï¼Œå‘ç°å®˜æ–¹æ¨èä½¿ç”¨æœ€æ–°çš„é‚‹acmæ¨¡æ¿ï¼Œä¸å†ä½¿ç”¨ä»¥å‰çš„acmsiggraphæ¨¡æ¿äº†ã€‚æ‰€ä»¥æˆ‘ä¹Ÿæ”¹äº†ã€‚æ–°æ¨¡æ¿æœ‰ç‚¹é—®é¢˜:
+* æ–°æ¨¡æ¿åœ°å€: http://www.siggraph.org/learn/instructions-authors, Sample Filesç« èŠ‚ã€‚ä¾‹å­è§./Poster/poster_abstract_example/new
+* \citestyle ä¸èƒ½ç”¨ï¼Œä½¿å¾—å¼•ç”¨å‡ºé”™ã€‚
+* siggraph 2017ä¸Šç»™çš„poster abstract paperé‡Œé¢æ˜¯æ²¡æœ‰abstractéƒ¨åˆ†(ä¹Ÿæ²¡æœ‰Keywords, ccs conceptséƒ¨åˆ†)ï¼Œä½†æ˜¯æ–°æ¨¡æ¿å’Œæ–°ä¾‹å­æœ‰ã€‚æˆ‘ä»¬æ˜¯ä¸æ˜¯ä¹Ÿåº”è¯¥å†™ä¸€ä¸ªabstact?
+
+
+## Submission
+
+Log in to the SIGGRAPH Information System, select "Begin a New Submission," and then select "create". You will be asked for:
+
+Basic information about your submission (page 1)
+Permissions (page 2)
+A presentation format (page 3). To propose a Poster, please select Poster as your presentation format. You will then be taken to the forms specific to Posters. Please see below for more information about required information and materials for this presentation format.
+Your submission must include the following materials and information:
+
+* Basic information: This includes submitter name, affiliation, and contact information, as well as title of the work and a single-sentence summary that introduces the achievements of your work (50 words or fewer)
+* One "representative image": This image should be suitable for use in the conference web site and promotional materials. See Representative Image Guidelines.
+* Statement of permissions to use the submitted materials. This assures SIGGRAPH 2017 that you own the rights to your materials or have permission to use them.
+* Poster abstract: An abstract (two pages maximum) describing your work (PDF). The abstract should include what area you are working in, what is novel about your work, and how this work relates to previous work on the same topic.
+* Submission categories and keywords: You will be asked to tag your submission with appropriate keywords to help ensure your submission is reviewed and juried appropriately.
+* Short video: If your poster is accepted, you will be required to submit a short video (30 seconds or less) that showcases your work. Information on the formatting specifications of the video will also be provided with the acceptance notification.
+For guidance, we have provided both vertical and horizontal templates in Adobe Illustrator and PDF format, as well as three examples of recent SIGGRAPH abstracts and their corresponding posters. You are welcome to use these materials for general formatting suggestions. However, your abstract must also conform to these updated formatting guidelines.
