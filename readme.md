@@ -1,5 +1,5 @@
 # README
-See ./Poster/Poser_abstract.pdf for short paper.
+See ./Poster
 
 
 ##Poster abstract
