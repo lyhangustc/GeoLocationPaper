@@ -1,12 +1,17 @@
 # README
-See ./Poster for short paper.
-Poster draft is not yet available.
+See ./Poster/Poser_abstract.pdf for short paper.
 
-## 再次确认模板的时候，发现官方推荐使用最新的邋acm模板，不再使用以前的acmsiggraph模板了。所以我也改了。新模板有点问题:
-* 新模板地址: http://www.siggraph.org/learn/instructions-authors, Sample Files章节。例子见./Poster/poster_abstract_example/new
-* \citestyle 不能用，使得引用出错。
-* siggraph 2017上给的poster abstract paper里面是没有abstract部分(也没有Keywords, ccs concepts部分)，但是新模板和新例子有。我们是不是也应该写一个abstact?
 
+##Poster abstract
+* 有新旧两个poster abstract的模板。
+* 在./Poster/poster_abstract_examples里面有新旧两个模板的例子。
+* 有两个版本，One_page（旧模板）和two_page（新模板）内容大致一样。可以先看One_page。
+* One page有点超出，去掉开头的会议信息和调整一下图的位置应该就不会超出了（我回头研究一下怎么处理）。
+* Two—page的内容需要再加一点。
+
+## Poster draft
+* Point cloud的图和references还要改。
+* 现在的字号是模板上自带的，要不要把都改小一点，有些地方字显得有点挤。字改小了可以再加点内容。
 
 ## Submission
 
