@@ -42,6 +42,8 @@ With the optimized global project matrix and pre-calibrated intrinsic matrix of 
 \section{Experiments and Future Work}
 %We tested the proposed approach on a newly collected dataset, which contains several low-altitude overhead images and corresponding building point clouds. Figure 3 shows one of the results and a comparison of some details of the result, where we project roof contours on the overhead image. As we can see, the result after the global optimization is not much more accuracy than that before the global optimization.
 We tested the proposed approach on a newly collected dataset, which contains several low-altitude overhead images and corresponding building point clouds. Figure 3 shows the results of our experiments, where we project roof contours on the overhead image. 
+
+The proposed method uses the results of shape matching stage as the initialization of the global optimization stage. We find that the global optimization can correct some small mistakes taken in shape matching stage. 
 Since most of the consuming time is spent in the shape matching stage and the optimizing stage is fast, we intend to implement a faster version of the algorithm and extend it to video-based problems. 
 
 \begin{figure}[b]
