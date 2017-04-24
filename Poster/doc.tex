@@ -19,15 +19,17 @@ In this work, we estimate the camera pose using an overhead image captured by a 
 There are two key observations that vertical facades of a point cloud correspond to edges of building roofs in the overhead image and that roofs at different altitudes are of different scales in the image, which inspire us to treat this geo-localization problem as a combination of a multi-layer shape matching problem and a global optimizing procedure. 
 %利用这个方法，我们可以。。。。。
 %
-\begin{figure}
+\begin{figure}[t]
 	\centering
-	\vspace{2.0cm}
-	\includegraphics[width=0.5\textwidth]{figures/details_png}
+	%\vspace{2.0cm}
+	\includegraphics[width=0.5\textwidth]{figures/details_pdf}
 	\caption{Finding paired 3D and 2D feature points: for a 3D feature point, we project it on the overhead image (magenta points) using current project matrix and search in its $k\times k$ neighborhood for a corner (cyan points). These 3D feature points and corresponding corners form pairs of feature points for next iteration of calculating project matrix.}
 	\label{fig:overview}
 \end{figure}
 \section{Our Approach}
-Given a building point cloud, we first extract contours of building roofs in different altitudes according to the altitude histogram of points, where each contour is fit into a set of line segments (Figure 1b). And then the contours are matched with the edge map of the overhead image respectively using a shape matching technique of \cite{FDCM}. A local project matrix is achieved for each contour after shape matching (Figure 1c). Note that we need a global project matrix instead of local ones to estimate the camera pose. So we treat the results of shape matching as the initialization of following global optimizing procedure. 
+Given a building point cloud, we first project points upward along the vertical direction to several specific altitudes determined by altitude histogram of points. And then we fit those points into line segments in each altitude and treat the sets of line segments as contours of building roofs (Figure 1b). 
+%Given a building point cloud, we first extract contours of building roofs in different altitudes according to the altitude histogram of points, where each contour is fit into a set of line segments (Figure 1b). 
+And then the contours are matched with the edge map of the overhead image respectively using a shape matching technique of \cite{FDCM}. A local project matrix is achieved for each contour after shape matching (Figure 1c). Note that we need a global project matrix instead of local ones to estimate the camera pose. So we treat the results of shape matching as the initialization of following global optimizing procedure. 
 
 To calculate the global project matrix between the whole point cloud and the overhead image, we need a series of paired 3D feature points and corresponding 2D feature points. We take the intersections of neighboring line segments of the contours as 3D feature points. And then we employ an iterative algorithm to optimize the global project matrix by alternatively finding corresponding 2D feature points and calculating the project matrix, where we utilize the results of shape matching as initial project matrix.
 
@@ -38,4 +40,14 @@ To be more specific, we apply two steps in every iteration alternatively until t
 With the optimized global project matrix and pre-calibrated intrinsic matrix of the camera, we can finally estimate the 6 degree-of-freedom camera pose of the overhead image in point cloud coordinate system.
 % Be more specific?
 \section{Experiments and Future Work}
-We tested the proposed approach on a newly collected dataset, which contains several low-altitude overhead images and corresponding building point clouds. Figure 1(d) shows one of the results, where we project roof contours on the overhead image. Since most of the consuming time is spent in the shape matching stage and the optimizing stage is fast, we intend to implement a faster version of the algorithm and extend it to video-based problems. 
+%We tested the proposed approach on a newly collected dataset, which contains several low-altitude overhead images and corresponding building point clouds. Figure 3 shows one of the results and a comparison of some details of the result, where we project roof contours on the overhead image. As we can see, the result after the global optimization is not much more accuracy than that before the global optimization.
+We tested the proposed approach on a newly collected dataset, which contains several low-altitude overhead images and corresponding building point clouds. Figure 3 shows the results of our experiments, where we project roof contours on the overhead image. 
+Since most of the consuming time is spent in the shape matching stage and the optimizing stage is fast, we intend to implement a faster version of the algorithm and extend it to video-based problems. 
+
+\begin{figure}[b]
+	\centering
+	%\vspace{2.0cm}
+	\includegraphics[width=0.5\textwidth]{figures/results_pdf}
+	\caption{(a) The low-altitude overhead images. (b) Building point cloud with contours we extract. (c) Results of our experiments. We project the contours on the overhead image to show the results.}
+	\label{fig:comparison}
+\end{figure}
