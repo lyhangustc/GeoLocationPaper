@@ -28,37 +28,41 @@
 \copyrightyear{2017}
 \acmPrice{15.00}
 
+\newcommand{\md}[1]{\textcolor[rgb]{0.5,0.0,0.5}{#1}}
+\newcommand{\cxj}[1]{\textcolor[rgb]{1.00,0.00,0.00}{(Xuejin: #1)}}
+\newcommand{\lyh}[1]{\textcolor[rgb]{0.00,0.00,1.00}{#1}}
 
 \begin{document}
-\title{Geo-Localization Based on Low-Altitude Overhead Image and Point Cloud Using Multiply Shape Matching}
+\title{Accurate Geo-Localization of Low-Altitude Overhead Images From 3D Point Clouds}
 
 \author{Yuhang Li}
 %\orcid{1234-5678-9012}
 \affiliation{%
   \institution{University of Science and Technology of China}
-  \streetaddress{P.O. Box 4}
-  \city{Hefei} 
-  \state{Anhui, China} 
-  \postcode{230026}
+  \streetaddress{P.O. Box 4, Hefei, Anhui, 230026, China}
 }
 \email{lyh9001@mail.ustc.edu.cn}
 
 \author{Xuejin Chen}
+%\orcid{1234-5678-9012}
 \affiliation{%
-  \institution{University of Science and Technology of China}
-  \streetaddress{P.O. Box 4}
-  \city{Hefei} 
-  \state{Anhui, China} 
-  \postcode{230026}
+	\institution{University of Science and Technology of China}
+	\streetaddress{P.O. Box 4, Hefei, Anhui, 230026, China}
 }
 \email{xjchen99@ustc.edu.cn}
-
+ 
 % The default list of authors is too long for headers}
 %\renewcommand{\shortauthors{Li and Chen}}
 
 \begin{abstract}
 
-Geo-localization is a key technique to image-based navigation, augmented reality and 3D reconstruction. We present a geo-localization method by estimating the camera pose based on a low-altitude overhead image and a corresponding building point cloud. The observations that vertical facades of a point cloud correspond to edges of building roofs in the overhead image and that roofs at different altitudes are of different scales in the overhead image inspire us to treat this geo-localization problem as a combination of a multi-layer shape matching problem and a global optimizing procedure. We test the proposed approach on a newly collected dataset. 
+Geo-localization, aiming at register images with 3D models, is a key technique to many applications, such as image-based navigation, augmented reality, 3D city modeling, etc.
+%
+We present a geo-localization method by estimating the camera pose of a low-altitude overhead image with respect to a corresponding building point cloud. 
+%
+The observations that vertical facades of a point cloud correspond to edges of building roofs in the overhead image and that roofs at different altitudes are of different scales in the overhead image inspire us to treat this geo-localization problem as a combination of a multi-layer shape matching problem and a global optimizing procedure. 
+%
+We test the proposed approach on a newly collected dataset. \cxj{What newly collected? no existing dataset? what kind of dataset? Describe more.. }
 
 \end{abstract}
 
@@ -82,8 +86,9 @@ Geo-localization is a key technique to image-based navigation, augmented reality
 	</ccs2012>
 \end{CCSXML}
 
-\ccsdesc[500]{Computing methodologies~Point-based models}
-\ccsdesc[300]{Computing methodologies~Shape representations}
+\ccsdesc[600]{Computing methodologies~Camera calibration}
+\ccsdesc[500]{Computing methodologies~Shape inference}
+\ccsdesc[300]{Computing methodologies~Point-based models}
 
 
 % We no longer use \terms command
@@ -92,6 +97,6 @@ Geo-localization is a key technique to image-based navigation, augmented reality
 \keywords{Geo-localization, point cloud, shape matching}
 \input{doc}
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{Alignment_of_Model} 
+\bibliography{Poster_bib} 
 
 \end{document}
